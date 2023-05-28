@@ -7,9 +7,15 @@ Console.WriteLine("Hello, World!");
 var products = GetProducts();
 foreach (var product in products)
 {
-    Console.WriteLine(product);
+    Console.WriteLine(product.productName + " " + product.price);
 }
-Console.WriteLine(GetTopProducts(3));
+Console.WriteLine("---------------------------------");
+var topList = GetTopProducts(3);
+foreach (var top in topList)
+{
+    Console.WriteLine(top.productName + " " + top.price);
+
+}
 
 /* Bu metod Products.json dosyasından ürünleri 
  * okuyarak size MaxHeap<Product> türünde bir nesne vermelidir.
@@ -17,11 +23,22 @@ Console.WriteLine(GetTopProducts(3));
 MaxHeap<Product> GetProducts()
 {
     string json = File.ReadAllText("C:\\Users\\SenaNur\\source\\repos\\MYAZ204206\\Apps\\BHeapAppwithProducts\\Products.json", encoding: Encoding.UTF8);
-    Console.WriteLine(json);
-    List<Product> productList = JsonConvert.DeserializeObject<List<Product>>(json);
+    //Console.WriteLine(json);
+    //List<Product> productList = JsonConvert.DeserializeObject<List<Product>>(json);
+
+    //MaxHeap<Product> maxHeap = new MaxHeap<Product>();
+    //foreach (Product product in productList)
+    //{
+    //    maxHeap.Add(product);
+    //}
+
+    //return maxHeap;
+
+    var productList = JsonConvert.DeserializeObject<Dictionary<string, List<Product>>>(json);
 
     MaxHeap<Product> maxHeap = new MaxHeap<Product>();
-    foreach (Product product in productList)
+
+    foreach (Product product in productList["Products"])
     {
         maxHeap.Add(product);
     }
