@@ -1,5 +1,7 @@
 ﻿
 using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace DisjointSet
 {
@@ -20,6 +22,24 @@ namespace DisjointSet
         }
 
         public int Count { get; private set; }
+
+        public void PathCompression(T value)
+        {
+            if (!set.ContainsKey(value))
+                throw new Exception("The value is not in this set!");
+
+
+            DisjointSetNode<T> node = set[value];
+            DisjointSetNode<T> root = findSet(node);
+
+            // Path compression işlemi
+            while (node != root)
+            {
+                DisjointSetNode<T> parent = node.Parent;
+                node.Parent = root;
+                node = parent;
+            }
+        }
 
         public void MakeSet(T value)
         {
