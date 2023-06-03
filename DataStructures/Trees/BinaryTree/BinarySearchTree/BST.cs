@@ -89,6 +89,14 @@ namespace Trees.BinaryTree.BinarySearchTree
             return minValue;
         }
 
+        public Node<T> FindMax(Node<T> root)
+        {
+            var current = Root;
+            while (!(current.Right == null))
+                current = current.Right;
+            return current;
+        }
+
         public T FindMax()
         {
             if (Root == null)
